@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Blood Donation</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_home">Home</string>
+    <string name="title_donors">Donors</string>
+    <string name="title_profile">Profile</string>
+</resources>
