@@ -1,44 +1,58 @@
 package com.example.blooddonationfirebase.main_fragments;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.blooddonationfirebase.EditProfileActivity;
 import com.example.blooddonationfirebase.R;
+import com.example.blooddonationfirebase.home_utils.HomeAdapter;
+import com.example.blooddonationfirebase.models.Request;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ProfileFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class ProfileFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
+
+    private ImageView profile_iv, available_iv, unavailable_iv;
+    private TextView name_tv, nameSeparator_tv, bloodGroup_tv, available_tv, unavailable_tv, gender_tv, phone_tv, location_tv, lastDonation_tv;
+    private Button editProfile_btn;
+
+    private String bloodGroup, available, gender, phone, location, lastDonation;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private ProgressDialog pd;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ProfileFragment.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ProfileFragment newInstance(String param1, String param2) {
         ProfileFragment fragment = new ProfileFragment();
         Bundle args = new Bundle();
@@ -61,6 +75,102 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        initializeViews(view);
+
+        pd = new ProgressDialog(getActivity());
+        pd.setTitle("Loading...");
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
+        pd.getWindow().setGravity(Gravity.CENTER);
+        pd.show();
+
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity());
+        if (signInAccount != null) {
+            name_tv.setText(signInAccount.getDisplayName());
+            Uri personPhoto = signInAccount.getPhotoUrl();
+            Picasso.get().load(personPhoto).into(profile_iv);
+        }
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        db.collection("profiles").document(user.getUid()).get()
+                .addOnCompleteListener(task -> {
+                    pd.dismiss();
+
+                    bloodGroup = task.getResult().getString("bloodGroup");
+                    available = task.getResult().getString("available");
+                    gender = task.getResult().getString("gender");
+                    phone = task.getResult().getString("phone");
+                    location = task.getResult().getString("location");
+                    lastDonation = task.getResult().getString("lastDonation");
+
+                    if(!bloodGroup.isEmpty()) {
+                        nameSeparator_tv.setVisibility(View.VISIBLE);
+                        bloodGroup_tv.setVisibility(View.VISIBLE);
+                        bloodGroup_tv.setText(task.getResult().getString("bloodGroup") + " Donor");
+                    }
+                    if(!available.isEmpty()) {
+                        if(available.equals("Yes")) {
+                            available_iv.setVisibility(View.VISIBLE);
+                            unavailable_iv.setVisibility(View.GONE);
+                            available_tv.setVisibility(View.VISIBLE);
+                            unavailable_tv.setVisibility(View.GONE);
+                        }
+                        else if(available.equals("No")) {
+                            available_iv.setVisibility(View.GONE);
+                            unavailable_iv.setVisibility(View.VISIBLE);
+                            available_tv.setVisibility(View.GONE);
+                            unavailable_tv.setVisibility(View.VISIBLE);
+                        }
+                    }
+                    if(!gender.isEmpty()) {
+                        gender_tv.setVisibility(View.VISIBLE);
+                        gender_tv.setText(task.getResult().getString("gender"));
+                    }
+                    if(!phone.isEmpty()) {
+                        phone_tv.setVisibility(View.VISIBLE);
+                        phone_tv.setText(task.getResult().getString("phone"));
+                    }
+                    if(!location.isEmpty()) {
+                        location_tv.setVisibility(View.VISIBLE);
+                        location_tv.setText(task.getResult().getString("location"));
+                    }
+                    if(!lastDonation.isEmpty()) {
+                        lastDonation_tv.setVisibility(View.VISIBLE);
+                        lastDonation_tv.setText(task.getResult().getString("lastDonation"));
+                    }
+
+                })
+                .addOnFailureListener(e -> {
+                    pd.dismiss();
+                    Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
+        editProfile_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EditProfileActivity.class);
+            startActivity(intent);
+        });
+        return view;
+    }
+
+    private void initializeViews(View view) {
+        profile_iv = view.findViewById(R.id.profile_iv);
+        name_tv = view.findViewById(R.id.name_tv);
+        editProfile_btn = view.findViewById(R.id.editProfile_btn);
+
+        nameSeparator_tv = view.findViewById(R.id.nameSeparator_tv);
+
+        bloodGroup_tv = view.findViewById(R.id.bloodGroup_tv);
+
+        available_iv = view.findViewById(R.id.available_iv);
+        unavailable_iv = view.findViewById(R.id.unavailable_iv);
+        available_tv = view.findViewById(R.id.available_tv);
+        unavailable_tv = view.findViewById(R.id.unavailable_tv);
+
+        gender_tv = view.findViewById(R.id.gender_tv);
+        phone_tv = view.findViewById(R.id.phone_tv);
+        location_tv = view.findViewById(R.id.location_tv);
+        lastDonation_tv = view.findViewById(R.id.lastDonation_tv);
     }
 }
