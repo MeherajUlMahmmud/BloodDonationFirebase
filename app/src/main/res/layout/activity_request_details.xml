@@ -22,14 +22,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Patient Name" />
+                android:text="Patient Name"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/patientName_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John Doe"
-                android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -42,7 +42,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posted On" />
+                android:text="Posted On"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/postedOn_tv"
@@ -69,14 +70,14 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location" />
+                android:text="Location"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/location_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Dhaka Medical College"
-                android:textColor="@color/black"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -89,7 +90,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Phone Number" />
+                android:text="Phone Number"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/phone_tv"
@@ -110,6 +112,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="16sp"
             android:text="Blood Group" />
 
         <TextView
@@ -117,7 +120,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="AB+"
-            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -130,14 +132,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Needed Within" />
+            android:text="Needed Within"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/neededWithin_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="20th July, 2021"
-            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -150,14 +152,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Additional Note" />
+            android:text="Additional Note"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/note_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="This is dummy note."
-            android:textColor="@color/black"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -170,7 +172,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Posted by " />
+            android:text="Posted by "
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/user_tv"
