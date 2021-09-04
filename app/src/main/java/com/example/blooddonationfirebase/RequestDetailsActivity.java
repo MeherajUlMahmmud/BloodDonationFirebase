@@ -35,6 +35,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
     private Button showOnMap_btn, contact_btn;
     private Request req;
 
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog pd;
 
@@ -49,6 +50,13 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
+
+        pd = new ProgressDialog(RequestDetailsActivity.this);
+        pd.setTitle("Loading...");
+        pd.setCancelable(false);
+        pd.setCanceledOnTouchOutside(false);
+        pd.getWindow().setGravity(Gravity.CENTER);
+        pd.show();
 
         fetchData(id);
 
@@ -66,20 +74,8 @@ public class RequestDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchData(String id) {
-        pd = new ProgressDialog(RequestDetailsActivity.this);
-        pd.setTitle("Loading...");
-        pd.setCancelable(false);
-        pd.setCanceledOnTouchOutside(false);
-        pd.getWindow().setGravity(Gravity.CENTER);
-        pd.show();
-
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         db.collection("requests").document(id).get()
                 .addOnCompleteListener(task -> {
-                    pd.dismiss();
-
-                    System.out.println("Fetched");
-
                     req = new Request();
 
                     req.setId(task.getResult().getString("id"));
@@ -98,7 +94,6 @@ public class RequestDetailsActivity extends AppCompatActivity {
 
                 })
                 .addOnFailureListener(e -> {
-                    pd.dismiss();
                     Toast.makeText(RequestDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
@@ -112,7 +107,17 @@ public class RequestDetailsActivity extends AppCompatActivity {
         neededWithin_tv.setText(req.getNeededWithin());
         note_tv.setText(req.getNote());
         phone_tv.setText(req.getPhone());
-        user_tv.setText(req.getUserId());
+
+        db.collection("profiles").document(req.getUserId()).get()
+                .addOnCompleteListener(task -> {
+                    pd.dismiss();
+                    user_tv.setText(task.getResult().getString("name"));
+                })
+                .addOnFailureListener(e -> {
+                    pd.dismiss();
+                    Toast.makeText(RequestDetailsActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+
     }
 
     @Override
