@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ActionBar toolbar;
     private BottomNavigationView bottomNav_view;
     private FloatingActionButton newRequest_fab;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,11 +49,14 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle("Dashboard");
         loadFragment(new HomeFragment());
 
+
 //        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
 //        if (signInAccount != null) {
 //            name.setText(new StringBuilder().append("Hi ").append(signInAccount.getDisplayName()).toString());
 //        }
-    }@Override
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.action_bar_menu, menu);
         return true;
@@ -111,4 +115,5 @@ public class MainActivity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
 }
