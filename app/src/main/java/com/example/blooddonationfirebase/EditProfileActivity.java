@@ -40,7 +40,6 @@ public class EditProfileActivity extends AppCompatActivity implements
 
     private FloatingActionButton save_fab;
     private TextInputEditText phone_et, location_et, lastDonation_et;
-    private RadioGroup editProfileGender_rg;
     private RadioButton male_radio, female_radio, other_radio, yes_radio, no_radio;
     private Spinner bloodGroup_spinner;
     private ProgressDialog pd;
@@ -98,6 +97,7 @@ public class EditProfileActivity extends AppCompatActivity implements
 
                     bloodGroup = task.getResult().getString("bloodGroup");
                     gender = task.getResult().getString("gender");
+                    available = task.getResult().getString("available");
                     phone = task.getResult().getString("phone");
                     location = task.getResult().getString("location");
                     lastDonation = task.getResult().getString("lastDonation");
@@ -107,12 +107,20 @@ public class EditProfileActivity extends AppCompatActivity implements
                     }
 
                     if (!gender.isEmpty()) {
-                        if (gender == "Male") {
-                            editProfileGender_rg.check(editProfileGender_rg.getChildAt(0).getId());
-                        } else if (gender == "Female") {
-                            editProfileGender_rg.check(editProfileGender_rg.getChildAt(1).getId());
-                        } else if (gender == "Other") {
-                            editProfileGender_rg.check(editProfileGender_rg.getChildAt(2).getId());
+                        if (gender.equals("Male")) {
+                            male_radio.setChecked(true);
+                        } else if (gender.equals("Female")) {
+                            female_radio.setChecked(true);
+                        } else if (gender.equals("Other")) {
+                            other_radio.setChecked(true);
+                        }
+                    }
+
+                    if (!available.isEmpty()) {
+                        if (available.equals("Yes")) {
+                            yes_radio.setChecked(true);
+                        } else if (available.equals("No")) {
+                            no_radio.setChecked(true);
                         }
                     }
 
@@ -209,7 +217,6 @@ public class EditProfileActivity extends AppCompatActivity implements
     private void initializeViews() {
         phone_et = findViewById(R.id.phone_et);
 
-        editProfileGender_rg = findViewById(R.id.editProfileGender_rg);
         male_radio = findViewById(R.id.male_radio);
         female_radio = findViewById(R.id.female_radio);
         other_radio = findViewById(R.id.other_radio);
