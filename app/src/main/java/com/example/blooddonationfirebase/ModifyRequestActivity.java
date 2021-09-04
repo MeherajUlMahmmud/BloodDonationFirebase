@@ -49,10 +49,9 @@ public class ModifyRequestActivity extends AppCompatActivity implements
     private Spinner bloodGroup_spinner;
     private ProgressDialog pd;
 
-    private String id, userId, patientName, gender, bloodGroup, location, date, unit, phone, note, postedOn;
-
     String[] bloodGroupChoices = {"A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"};
 
+    private String id, userId, patientName, gender, bloodGroup, location, date, unit, phone, note, postedOn;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
@@ -100,9 +99,9 @@ public class ModifyRequestActivity extends AppCompatActivity implements
     private void createOrUpdateRequest() {
 //        Toast.makeText(this, "Create or Update Request", Toast.LENGTH_SHORT).show();
 
-//        pd = new ProgressDialog(ModifyRequestActivity.this);
-//        pd.setTitle("Posting New Request...");
-//        pd.show();
+        pd = new ProgressDialog(ModifyRequestActivity.this);
+        pd.setTitle("Processing...");
+        pd.show();
 
         id = UUID.randomUUID().toString();
 
@@ -142,7 +141,7 @@ public class ModifyRequestActivity extends AppCompatActivity implements
 
         db.collection("requests").document(id).set(doc)
                 .addOnCompleteListener(task -> {
-//                    pd.dismiss();
+                    pd.dismiss();
                     Toast.makeText(ModifyRequestActivity.this, "Request Created", Toast.LENGTH_SHORT).show();
 
                     Intent i = new Intent(ModifyRequestActivity.this, MainActivity.class);
@@ -150,7 +149,7 @@ public class ModifyRequestActivity extends AppCompatActivity implements
                     startActivity(i);
                 })
                 .addOnFailureListener(e -> {
-//                    pd.dismiss();
+                    pd.dismiss();
                     Toast.makeText(ModifyRequestActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
