@@ -38,7 +38,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.RequestCardVie
         holder.name_tv.setText(requestList.get(position).getPatientName());
         holder.location_tv.setText(requestList.get(position).getLocation());
         holder.bloodGroup_tv.setText(requestList.get(position).getBloodGroup());
-        holder.unit_tv.setText(requestList.get(position).getUnit() + " Bag(s)");
+        holder.unit_tv.setText(requestList.get(position).getUnit() + " Unit(s)");
         holder.neededWithin_tv.setText("Within " + requestList.get(position).getNeededWithin());
         holder.timeAgo_tv.setText("Posted on " + requestList.get(position).getPostedOn());
 
