@@ -48,7 +48,6 @@ public class EditProfileActivity extends AppCompatActivity implements
 
     private String userId, name, phone, gender, available, bloodGroup, location, lastDonation;
     ArrayAdapter aa;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +90,8 @@ public class EditProfileActivity extends AppCompatActivity implements
         pd.show();
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("profiles").document(user.getUid()).get()
                 .addOnCompleteListener(task -> {
                     pd.dismiss();
@@ -183,6 +184,7 @@ public class EditProfileActivity extends AppCompatActivity implements
         doc.put("lastDonation", lastDonation);
         doc.put("phone", phone);
 
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("profiles").document(userId).set(doc)
                 .addOnCompleteListener(task -> {
                     pd.dismiss();
