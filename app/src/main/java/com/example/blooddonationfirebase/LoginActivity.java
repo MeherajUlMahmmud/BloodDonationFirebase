@@ -20,6 +20,13 @@ import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -98,6 +105,7 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = mAuth.getCurrentUser();
+                            saveToFirestore(user);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {
@@ -105,6 +113,53 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                     }
+                });
+    }
+
+    private void saveToFirestore(FirebaseUser user) {
+        String id = user.getUid();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        DocumentReference docIdRef = db.collection("profiles").document(id);
+        docIdRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        return;
+                    } else {
+                        saveData(user);
+                    }
+                } else {
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+    }
+
+    private void saveData(FirebaseUser user) {
+        String id = user.getUid();
+
+        Map<String, Object> doc = new HashMap<>();
+        doc.put("id", id);
+        doc.put("name", user.getDisplayName());
+        doc.put("gender", "");
+        doc.put("available", "Yes");
+        doc.put("bloodGroup", "");
+        doc.put("location", "");
+        doc.put("lastDonation", "");
+        doc.put("phone", "");
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("profiles").document(id).set(doc)
+                .addOnCompleteListener(task -> {
+                    Toast.makeText(LoginActivity.this, "Profile Created", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 }
