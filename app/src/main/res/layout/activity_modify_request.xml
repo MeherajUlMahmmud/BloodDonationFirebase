@@ -54,18 +54,20 @@
                     android:paddingHorizontal="10dp">
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/patientName_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:hint="Patient Name">
+                        android:hint="Patient Name"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/patientName_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="30"
-                            android:inputType="text" />
+                            android:inputType="textCapSentences"
+                            android:maxLength="30" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -128,38 +130,41 @@
                             android:textSize="14sp" />
 
                         <Spinner
-                            android:layout_marginTop="5dp"
                             android:id="@+id/bloodGroup_spinner"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp" />
 
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/location_textInput"
+                        android:id="@+id/location_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:hint="Location">
+                        android:hint="Location"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/location_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="150"  />
+                            android:inputType="textCapSentences"
+                            android:maxLength="150" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/date_textInput"
+                        android:id="@+id/date_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:clickable="true"
-                        android:hint="Date"
-                        android:longClickable="false">
+                        android:hint="Needed Within"
+                        android:longClickable="false"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/date_et"
@@ -170,73 +175,57 @@
 
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    <!--                    <com.google.android.material.textfield.TextInputLayout-->
-                    <!--                        android:id="@+id/time_textInput"-->
-                    <!--                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
-                    <!--                        android:layout_width="match_parent"-->
-                    <!--                        android:layout_height="wrap_content"-->
-                    <!--                        android:layout_marginBottom="20dp"-->
-                    <!--                        android:clickable="true"-->
-                    <!--                        android:hint="Time"-->
-                    <!--                        android:longClickable="false">-->
-
-                    <!--                        <com.google.android.material.textfield.TextInputEditText-->
-                    <!--                            android:id="@+id/time_editText"-->
-                    <!--                            android:layout_width="match_parent"-->
-                    <!--                            android:layout_height="wrap_content"-->
-                    <!--                            android:focusable="false"-->
-                    <!--                            android:focusableInTouchMode="false"-->
-                    <!--                            android:longClickable="false" />-->
-
-                    <!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/unit_textInput"
+                        android:id="@+id/unit_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:hint="Blood Unit">
+                        android:hint="Blood Unit"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/unit_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="1"
-                            android:inputType="number" />
+                            android:inputType="number"
+                            android:maxLength="1" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/phone_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:hint="Contact No">
+                        android:hint="Contact No"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/phone_et"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:maxLength="15"
-                            android:inputType="phone" />
+                            android:inputType="phone"
+                            android:maxLength="15" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/note_textInput"
+                        android:id="@+id/note_til"
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:hint="Additional Note">
+                        android:hint="Note"
+                        app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/note_et"
                             android:layout_width="match_parent"
-                            android:maxLength="1024"
                             android:layout_height="wrap_content"
-                            android:inputType="textMultiLine" />
+                            android:inputType="textCapSentences"
+                            android:maxLength="1024" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
