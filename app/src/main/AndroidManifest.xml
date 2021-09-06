@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BloodDonationFirebase">
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".MyRequestsActivity"></activity>
+        <activity android:name=".UserProfileActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".SearchActivity" />
         <activity android:name=".SettingsActivity" />
