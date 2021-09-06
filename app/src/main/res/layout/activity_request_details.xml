@@ -30,6 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="John Doe"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -42,18 +44,60 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Posted On"
+                android:text="Blood Group"
                 android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/postedOn_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="15th July, 2021"
-                android:textColor="@color/red"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/bloodGroup_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AB+"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/unit_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="2"
+                    android:textColor="@color/red"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
+
+
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/location_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Dhaka Medical College"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -70,14 +114,16 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Location"
+                android:text="Needed Within"
                 android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/location_tv"
+                android:id="@+id/neededWithin_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dhaka Medical College"
+                android:text="20th July, 2021"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -99,52 +145,13 @@
                 android:layout_height="wrap_content"
                 android:text="15th July, 2021"
                 android:textColor="@color/red"
+                android:textSize="18sp"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:text="Blood Group" />
-
-        <TextView
-            android:id="@+id/bloodGroup_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AB+"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Needed Within"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/neededWithin_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="20th July, 2021"
-            android:textStyle="bold" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:orientation="vertical">
@@ -157,9 +164,11 @@
 
         <TextView
             android:id="@+id/note_tv"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="This is dummy note."
+            android:textColor="@color/black"
+            android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -180,6 +189,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Alice"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Posted on "
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/postedOn_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15th July, 2021"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -210,22 +238,64 @@
         <!--            android:layout_marginHorizontal="15dp"-->
         <!--            android:background="@android:color/darker_gray" />-->
 
+        <!--        <Button-->
+        <!--            android:id="@+id/share_btn"-->
+        <!--            android:layout_width="0dp"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:layout_weight="1"-->
+        <!--            android:drawableLeft="@drawable/ic_baseline_share_24"-->
+        <!--            android:text="Share Post" />-->
+
         <Button
-            android:id="@+id/share_btn"
+            android:id="@+id/contact_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_baseline_phone_24"
+            android:text="Contact" />
+    </LinearLayout>
+
+    <!--    <Button-->
+    <!--        android:id="@+id/contact_btn"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:drawableLeft="@drawable/ic_baseline_phone_24"-->
+    <!--        android:text="CONTACT" />-->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/update_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_baseline_share_24"
-            android:text="Share Post" />
-    </LinearLayout>
+            android:drawableLeft="@drawable/ic_baseline_edit_24"
+            android:gravity="center"
+            android:text="Update"
+            android:textAlignment="center"
+            android:visibility="gone" />
 
-    <Button
-        android:id="@+id/contact_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:drawableLeft="@drawable/ic_baseline_phone_24"
-        android:text="CONTACT" />
+        <Space
+            android:layout_width="15dp"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/delete_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_baseline_delete_24"
+            android:text="Delete"
+            android:visibility="gone" />
+    </LinearLayout>
 
 </LinearLayout>
