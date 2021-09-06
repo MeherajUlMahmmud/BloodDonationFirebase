@@ -45,7 +45,6 @@ public class HomeFragment extends Fragment {
     private TextView name_tv;
     private RecyclerView request_recycler;
 
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog pd;
 
     public HomeFragment() {
@@ -79,13 +78,6 @@ public class HomeFragment extends Fragment {
 
         getAllRequests(view);
 
-//        name_tv = view.findViewById(R.id.name);
-//
-//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(getActivity());
-//        if (signInAccount != null) {
-//            name_tv.setText(new StringBuilder().append("Hi ").append(signInAccount.getDisplayName()).toString());
-//        }
-
         return view;
     }
 
@@ -97,12 +89,19 @@ public class HomeFragment extends Fragment {
         pd.getWindow().setGravity(Gravity.CENTER);
         pd.show();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        db.collection("requests").get()
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        CollectionReference requestsCollectionRef = db
+                .collection("requests");
+
+        Query requestQuery = requestsCollectionRef
+                .orderBy("neededWithin", Query.Direction.ASCENDING);
+
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        requestQuery.get()
                 .addOnCompleteListener(task -> {
                     pd.dismiss();
 
-                    System.out.println("Fetched");
+//                    System.out.println("Fetched");
                     List<Request> reqList = new ArrayList<>();
                     for (DocumentSnapshot doc : task.getResult()) {
                         Request req = new Request();
@@ -117,7 +116,7 @@ public class HomeFragment extends Fragment {
                         req.setPostedOn(doc.getString("postedOn"));
 
                         reqList.add(req);
-                        System.out.println("added");
+//                        System.out.println("added");
                     }
                     request_recycler.setAdapter(new HomeAdapter(getContext(), reqList));
                 })
