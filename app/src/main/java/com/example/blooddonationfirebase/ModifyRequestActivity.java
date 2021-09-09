@@ -8,6 +8,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,8 +42,6 @@ public class ModifyRequestActivity extends AppCompatActivity implements
 
     final Calendar myCalendar = Calendar.getInstance();
 
-    private AppCompatImageButton clear_imgBtn;
-    private TextView task_tv;
     private FloatingActionButton saveRequest_fab;
     private TextInputLayout patientName_til, location_til, date_til, unit_til, phone_til, note_til;
     private TextInputEditText patientName_et, location_et, date_et, unit_et, phone_et, note_et;
@@ -61,17 +60,21 @@ public class ModifyRequestActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify_request);
 
-        initializeViews();
-
         Intent intent = getIntent();
         id = intent.getStringExtra("reqId");
 
         if (id != null) {
+            getSupportActionBar().setTitle("Update Request");
+        } else {
+            getSupportActionBar().setTitle("Post New Request");
+        }
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        initializeViews();
+
+        if (id != null) {
             setData(id);
         }
-        clear_imgBtn.setOnClickListener(view -> {
-            onBackPressed();
-        });
 
         bloodGroup_spinner.setOnItemSelectedListener(this);
 
@@ -85,9 +88,11 @@ public class ModifyRequestActivity extends AppCompatActivity implements
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateDate();
         };
-        date_et.setOnClickListener(v -> new DatePickerDialog(ModifyRequestActivity.this, date,
+        DatePickerDialog datePickerDialog = new DatePickerDialog(ModifyRequestActivity.this, date,
                 myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show());
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        date_et.setOnClickListener(v -> datePickerDialog.show());
 
         saveRequest_fab.setOnClickListener(v -> {
             if (id != null) {
@@ -99,8 +104,6 @@ public class ModifyRequestActivity extends AppCompatActivity implements
     }
 
     private void setData(String id) {
-        task_tv.setText("Update request");
-
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("requests").document(id).get()
                 .addOnCompleteListener(task -> {
@@ -322,10 +325,17 @@ public class ModifyRequestActivity extends AppCompatActivity implements
         date_et.setText(sdf.format(myCalendar.getTime()));
     }
 
-    private void initializeViews() {
-        task_tv = findViewById(R.id.task_tv);
-        clear_imgBtn = findViewById(R.id.clear_imgBtn);
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
+    private void initializeViews() {
         patientName_et = findViewById(R.id.patientName_et);
         location_et = findViewById(R.id.location_et);
         date_et = findViewById(R.id.date_et);
