@@ -11,24 +11,15 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.blooddonationfirebase.MainActivity;
 import com.example.blooddonationfirebase.R;
-import com.example.blooddonationfirebase.home_utils.HomeAdapter;
+import com.example.blooddonationfirebase.utils.RequestAdapter;
 import com.example.blooddonationfirebase.models.Request;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +32,6 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
-    private TextView name_tv;
     private RecyclerView request_recycler;
 
     private ProgressDialog pd;
@@ -118,7 +107,7 @@ public class HomeFragment extends Fragment {
                         reqList.add(req);
 //                        System.out.println("added");
                     }
-                    request_recycler.setAdapter(new HomeAdapter(getContext(), reqList));
+                    request_recycler.setAdapter(new RequestAdapter(getContext(), reqList));
                 })
                 .addOnFailureListener(e -> {
                     pd.dismiss();
