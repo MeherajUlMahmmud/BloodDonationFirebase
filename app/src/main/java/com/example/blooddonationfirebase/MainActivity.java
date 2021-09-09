@@ -37,23 +37,15 @@ public class MainActivity extends AppCompatActivity {
 
         initializeViews();
         bottomNav_view.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        newRequest_fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent newRequest_intent = new Intent(MainActivity.this, ModifyRequestActivity.class);
-                startActivity(newRequest_intent);
-            }
+        newRequest_fab.setOnClickListener(view -> {
+            Intent newRequest_intent = new Intent(MainActivity.this, ModifyRequestActivity.class);
+            startActivity(newRequest_intent);
         });
 
         toolbar = getSupportActionBar();
-        toolbar.setTitle("Dashboard");
+        toolbar.setTitle("Requests");
         loadFragment(new HomeFragment());
-
-
-//        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-//        if (signInAccount != null) {
-//            name.setText(new StringBuilder().append("Hi ").append(signInAccount.getDisplayName()).toString());
-//        }
+        
     }
 
     @Override
@@ -86,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             Fragment fragment;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    toolbar.setTitle("Home");
+                    toolbar.setTitle("Requests");
                     fragment = new HomeFragment();
                     loadFragment(fragment);
                     return true;
