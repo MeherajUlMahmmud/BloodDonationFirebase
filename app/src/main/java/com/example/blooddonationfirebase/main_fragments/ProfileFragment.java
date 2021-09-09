@@ -17,19 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.blooddonationfirebase.EditProfileActivity;
+import com.example.blooddonationfirebase.MyRequestsActivity;
 import com.example.blooddonationfirebase.R;
-import com.example.blooddonationfirebase.home_utils.HomeAdapter;
-import com.example.blooddonationfirebase.models.Request;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
@@ -41,8 +36,8 @@ public class ProfileFragment extends Fragment {
     private String mParam2;
 
     private ImageView profile_iv, available_iv, unavailable_iv;
-    private TextView name_tv, nameSeparator_tv, bloodGroup_tv, available_tv, unavailable_tv, gender_tv, phone_tv, location_tv, lastDonation_tv;
-    private Button editProfile_btn;
+    private TextView name_tv, bloodGroup_tv, available_tv, unavailable_tv, gender_tv, phone_tv, location_tv, lastDonation_tv;
+    private Button editProfile_btn, myRequests_btn;
 
     private String bloodGroup, available, gender, phone, location, lastDonation;
 
@@ -106,7 +101,6 @@ public class ProfileFragment extends Fragment {
                     lastDonation = task.getResult().getString("lastDonation");
 
                     if(!bloodGroup.isEmpty()) {
-                        nameSeparator_tv.setVisibility(View.VISIBLE);
                         bloodGroup_tv.setVisibility(View.VISIBLE);
                         bloodGroup_tv.setText(task.getResult().getString("bloodGroup") + " Donor");
                     }
@@ -151,6 +145,11 @@ public class ProfileFragment extends Fragment {
             Intent intent = new Intent(getContext(), EditProfileActivity.class);
             startActivity(intent);
         });
+
+        myRequests_btn.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), MyRequestsActivity.class);
+            startActivity(intent);
+        });
         return view;
     }
 
@@ -158,8 +157,6 @@ public class ProfileFragment extends Fragment {
         profile_iv = view.findViewById(R.id.profile_iv);
         name_tv = view.findViewById(R.id.name_tv);
         editProfile_btn = view.findViewById(R.id.editProfile_btn);
-
-        nameSeparator_tv = view.findViewById(R.id.nameSeparator_tv);
 
         bloodGroup_tv = view.findViewById(R.id.bloodGroup_tv);
 
@@ -172,5 +169,7 @@ public class ProfileFragment extends Fragment {
         phone_tv = view.findViewById(R.id.phone_tv);
         location_tv = view.findViewById(R.id.location_tv);
         lastDonation_tv = view.findViewById(R.id.lastDonation_tv);
+
+        myRequests_btn = view.findViewById(R.id.myRequests_btn);
     }
 }
