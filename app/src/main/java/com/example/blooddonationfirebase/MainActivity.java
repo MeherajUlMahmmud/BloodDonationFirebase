@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar = getSupportActionBar();
         toolbar.setTitle("Requests");
         loadFragment(new HomeFragment());
-        
+
     }
 
     @Override
