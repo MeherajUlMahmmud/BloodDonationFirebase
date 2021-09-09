@@ -65,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.search:
-                Intent search_intent = new Intent(MainActivity.this, SearchActivity.class);
-                startActivity(search_intent);
-                return true;
             case R.id.settings:
                 Intent settings_intent = new Intent(MainActivity.this, SettingsActivity.class);
                 startActivity(settings_intent);
