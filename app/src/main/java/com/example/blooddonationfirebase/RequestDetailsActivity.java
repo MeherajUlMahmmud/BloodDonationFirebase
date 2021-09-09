@@ -16,19 +16,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.blooddonationfirebase.home_utils.HomeAdapter;
 import com.example.blooddonationfirebase.models.Request;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RequestDetailsActivity extends AppCompatActivity {
 
@@ -59,6 +50,15 @@ public class RequestDetailsActivity extends AppCompatActivity {
         pd.show();
 
         fetchData(id);
+
+        user_tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(RequestDetailsActivity.this, UserProfileActivity.class);
+                i.putExtra("id", req.getUserId());
+                startActivity(i);
+            }
+        });
 
         contact_btn.setOnClickListener(v -> {
             Intent intent12 = new Intent(Intent.ACTION_DIAL);
@@ -172,6 +172,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
                     Toast.makeText(RequestDetailsActivity.this, "Request Deleted", Toast.LENGTH_SHORT).show();
 
                     Intent i = new Intent(RequestDetailsActivity.this, MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(i);
                 })
                 .addOnFailureListener(e -> {
@@ -184,6 +185,7 @@ public class RequestDetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 Intent i = new Intent(RequestDetailsActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
                 return true;
         }
