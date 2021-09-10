@@ -94,7 +94,6 @@
 
             </LinearLayout>
 
-
             <ImageButton
                 android:id="@+id/call_imgBtn"
                 style="@style/blood_group_shape"
@@ -104,7 +103,6 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_baseline_phone_24"
                 app:tint="@color/white" />
-
 
         </RelativeLayout>
 
