@@ -28,7 +28,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView name_tv, bloodGroup_tv, available_tv, unavailable_tv, gender_tv, phone_tv, location_tv, lastDonation_tv;
     private Button call_btn;
 
-    private String id, bloodGroup, available, gender, phone, location, lastDonation;
+    private String id, name, bloodGroup, available, gender, phone, location, lastDonation;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private ProgressDialog pd;
@@ -52,23 +52,19 @@ public class UserProfileActivity extends AppCompatActivity {
         pd.getWindow().setGravity(Gravity.CENTER);
         pd.show();
 
-        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(UserProfileActivity.this);
-        if (signInAccount != null) {
-            name_tv.setText(signInAccount.getDisplayName());
-            Uri personPhoto = signInAccount.getPhotoUrl();
-            Picasso.get().load(personPhoto).into(profile_iv);
-        }
-
         db.collection("profiles").document(id).get()
                 .addOnCompleteListener(task -> {
                     pd.dismiss();
 
+                    name = task.getResult().getString("name");
                     bloodGroup = task.getResult().getString("bloodGroup");
                     available = task.getResult().getString("available");
                     gender = task.getResult().getString("gender");
                     phone = task.getResult().getString("phone");
                     location = task.getResult().getString("location");
                     lastDonation = task.getResult().getString("lastDonation");
+
+                    name_tv.setText(name);
 
                     if(!bloodGroup.isEmpty()) {
                         bloodGroup_tv.setVisibility(View.VISIBLE);
